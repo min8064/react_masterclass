@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react_masterclas/react_todolist/static/js/main.6b4832ac.js",
-    "index.html": "/react_masterclas/react_todolist/index.html",
-    "main.6b4832ac.js.map": "/react_masterclas/react_todolist/static/js/main.6b4832ac.js.map"
+    "main.js": "/react_todolist/static/js/main.f53db829.js",
+    "index.html": "/react_todolist/index.html",
+    "main.f53db829.js.map": "/react_todolist/static/js/main.f53db829.js.map"
   },
   "entrypoints": [
-    "static/js/main.6b4832ac.js"
+    "static/js/main.f53db829.js"
   ]
 }
