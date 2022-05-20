@@ -1,4 +1,6 @@
+import { MotionConfig } from "framer-motion";
 import styled from "styled-components";
+import {motion} from "framer-motion";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -9,7 +11,7 @@ const Wrapper = styled.div`
   background-color: linear-gradient;
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   width: 200px;
   height: 200px;
   background-color: white;
@@ -20,7 +22,7 @@ const Box = styled.div`
 function App() {
   return(
     <Wrapper>
-      <Box />
+      <Box initial={{ scale:0 }} animate={{ scale:1 }}/>
     </Wrapper>
   );
 }
