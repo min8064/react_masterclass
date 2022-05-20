@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {motion} from "framer-motion";
+import { useRef } from "react";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -8,6 +9,17 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: linear-gradient;
+`;
+
+const BiggerBox = styled.div`
+  width: 600px;
+  height: 600px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //overflow: hidden;
 `;
 
 const Box = styled(motion.div)`
@@ -21,15 +33,20 @@ const Box = styled(motion.div)`
 `;
 
 const boxVariants = {
-  hover: { scale: 1.5, rotateZ: 90},
-  click: { scale: 1, borderRadius: "100px"},
-  drag: { backgroundColor:"rgb(46,204,113)", transition:{ duration:10 } },
+  hover: { rotateZ: 90},
+  click: { borderRadius: "100px"},
 };
 
+//drag 라고만 사방으로 다 드래그할 수 있고 drag="x", drag="y" 축 고정 제약이 생김
+// dragElastic 마우스 탄성 0~1사이값 0.5가 기본, dragSnapToOrigin 원래 자리로 돌아감
+//useRef 드래그 영역 제한
 function App() {
+  const biggerBoxRef = useRef<HTMLDivElement>(null);
   return(
     <Wrapper>
-      <Box drag variants={boxVariants} whileHover="hover" whileDrag="drag" whileTap="click" />
+      <BiggerBox ref={biggerBoxRef}>
+        <Box drag dragElastic={0.5} dragSnapToOrigin dragConstraints={biggerBoxRef} variants={boxVariants} whileHover="hover" whileTap="click" />
+      </BiggerBox>
     </Wrapper>
   );
 }
