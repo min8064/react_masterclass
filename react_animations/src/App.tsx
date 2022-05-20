@@ -21,8 +21,6 @@ const Box = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-//motionvalue가 바뀌어도 재랜더링되지 않는다
-
 function App() {
   const x = useMotionValue(0);
   const rotateZ = useTransform(x, [-800, 800], [-360, 360]);
