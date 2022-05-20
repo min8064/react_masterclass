@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {motion} from "framer-motion";
-import { useRef } from "react";
+import {motion, useMotionValue} from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -9,17 +9,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: linear-gradient;
-`;
-
-const BiggerBox = styled.div`
-  width: 600px;
-  height: 600px;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  //overflow: hidden;
 `;
 
 const Box = styled(motion.div)`
@@ -32,21 +21,20 @@ const Box = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-const boxVariants = {
-  hover: { rotateZ: 90},
-  click: { borderRadius: "100px"},
-};
+//motionvalue가 바뀌어도 재랜더링되지 않는다
 
-//drag 라고만 사방으로 다 드래그할 수 있고 drag="x", drag="y" 축 고정 제약이 생김
-// dragElastic 마우스 탄성 0~1사이값 0.5가 기본, dragSnapToOrigin 원래 자리로 돌아감
-//useRef 드래그 영역 제한
 function App() {
-  const biggerBoxRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  //그냥 console log는 안찍힘, react 세계에 존재하는 값이 아니기 때문
+  useEffect(() => {
+    x.onChange(() => console.log(x.get()));
+  }, [x]);
+  
+  //버튼을 이용해 x.set()으로 직접 이동값을 지정할 수도 있음
   return(
     <Wrapper>
-      <BiggerBox ref={biggerBoxRef}>
-        <Box drag dragElastic={0.5} dragSnapToOrigin dragConstraints={biggerBoxRef} variants={boxVariants} whileHover="hover" whileTap="click" />
-      </BiggerBox>
+        <button onClick={() => x.set(200)}>click me</button>
+        <Box style={{ x }} drag="x" dragSnapToOrigin/>
     </Wrapper>
   );
 }
