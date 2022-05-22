@@ -57,6 +57,7 @@ const overlay = {
   hidden: { backgroundColor: "rgba(0, 0, 0, 0)" },
   visible: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+    y: -30,
     transition: { duration: 0.3 }
   },
   exit: { backgroundColor: "rgba(0, 0, 0, 0)", transition: { duration: 0.3 } }
@@ -121,7 +122,7 @@ function App() {
             <Box
               layoutId={id}
               style={{
-                width: "40vw",
+                width: 265,
                 height: 200,
                 backgroundColor: "rgba(255,255,255,1)"
               }}
