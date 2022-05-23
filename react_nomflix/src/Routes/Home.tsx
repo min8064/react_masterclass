@@ -59,15 +59,12 @@ function Home() {
   );
   const nowMovies = nowPlayingMovie?.results;
 
-  let movieResults: IDatas[] = [];
-  const { data : latestMovie, isLoading: latestLoading } = useQuery(
+  const { data : latestMovie, isLoading: latestLoading } = useQuery<IGetDatasResult>(
     ["movies", "latestMovie"],
     getLatestMovies
   );
-  latestMovie?.map((movie:any) => {
-      movieResults.push(movie);
-  });
-  const latestMovies = movieResults;
+ 
+  const latestMovies = latestMovie?.results ;
 
   const { data : topMovie, isLoading: topLoading } = useQuery<IGetDatasResult>(
     ["movies", "topMovie"],
