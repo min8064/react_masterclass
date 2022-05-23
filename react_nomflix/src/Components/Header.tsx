@@ -34,6 +34,7 @@ const Items = styled.ul`
   display: flex;
   align-items: center;
 `;
+
 const Item = styled.li`
   margin-right: 20px;
   color: ${(props) => props.theme.white.darker};
@@ -176,7 +177,7 @@ function Header() {
           <Input
             transition={{ type: "linear" }}
             animate={inputAnimation}
-            initial={{ scaleX: 0 }}
+            initial={{ scaleX: searchOpen ? 1 : 0 }}
             placeholder="Search for movie or tv show..."
           />
         </Search>
