@@ -31,7 +31,7 @@ const BigCover = styled.div`
 	width: 100%;
 	background-size: cover;
 	background-position: center center;
-	height: 400px;
+	height: 350px;
 `;
 
 const BigTitle = styled.h3`
@@ -39,14 +39,41 @@ const BigTitle = styled.h3`
 	padding: 20px;
 	font-size: 46px;
 	position: relative;
-	top: -80px;
+	top: -135px;
 `;
 
 const BigOverview = styled.p`
 	padding: 20px;
 	position: relative;
-	top: -80px;
+	top: -60px;
 	color: ${(props) => props.theme.white.lighter};
+`;
+
+const BigUl = styled.ul`
+  display: flex;
+  justify-content: center;
+`;
+
+const Bigli = styled.li`
+  padding: 20px;
+  color: ${(props) => props.theme.white.lighter};
+  font-size:15px;
+  font-weight:400;
+  position:relative;
+  top: 30px;
+
+`;
+
+const BigDiv = styled.div`
+  background-color: ${(props) => props.theme.white.lighter};
+  color:${(props) => props.theme.black.darker};
+  font-weight: 400;
+  position: relative;
+  top: 30px;
+  text-align: center;
+  font-size:20px;
+  height:35px;
+  padding-top: 5px;
 `;
 
 interface IDetail {
@@ -78,16 +105,20 @@ function ItemDetail({id, kind} : IDetail){
           exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />
-        <BigMovie
-          style={{ top: scrollY.get() + 100 }}
-         
-        >
+        <BigMovie style={{ top: scrollY.get() + 100 }}>
         {data && ( 
           <>
             <BigCover
               style={{
               backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(data.backdrop_path,"w500")})`,}}
             />
+            <BigUl>
+              <Bigli>{data.release_date ? "Release" : "First Air"} : {data.release_date || data.first_air_date}</Bigli>
+              {data.runtime && <Bigli>Runtime : {data.runtime}</Bigli>}
+              <Bigli>Vote : {data.vote_average}</Bigli>
+              <Bigli>Popular : {Math.ceil(data.popularity)}</Bigli>
+            </BigUl>
+            {data.tagline && <BigDiv>{data.tagline}</BigDiv>}
             <BigTitle>{data.title || data.name}</BigTitle>
             <BigOverview>{data.overview}</BigOverview>
           </>
