@@ -7,12 +7,14 @@ export interface IDatas {
   poster_path:string;
   title:string;
   overview:string;
+  release_date:string;
   first_air_date: string;
   popularity: number;
   vote_average: number;
   media_type: string;
   tagline: string;
   name: string;
+  runtime: number;
 }
 
 export interface IGetDatasResult {

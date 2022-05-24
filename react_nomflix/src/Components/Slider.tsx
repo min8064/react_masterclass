@@ -171,8 +171,14 @@ function Slider({data, kind, category, searchYN}: ISlider) {
 							<MovingBtn onClick={increaseIndex}><FontAwesomeIcon icon={faChevronRight} /></MovingBtn>
 					</Row>
 				</AnimatePresence>
-				{movieMatch && (
-					<ItemDetail id={Number(movieMatch.params.movieId)} kind={kind}/>
+				{kind === "movie" ? (
+					movieMatch && (
+						<ItemDetail id={Number(movieMatch.params.movieId)} kind={kind}/>
+					)
+				) : (
+					tvMatch && (
+						<ItemDetail id={Number(tvMatch.params.tvId)} kind={kind}/>
+					)
 				)}
 		</>
 	);

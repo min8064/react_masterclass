@@ -58,8 +58,12 @@ function ItemDetail({id, kind} : IDetail){
   console.log(id);
   const navigate = useNavigate();
   //const bigMovieMatch = useMatch("/movies/:movieId");
-  const onOverlayClick = () => {
-    navigate("/");
+  const onOverlayClick = (kind: string) => {
+    if(kind === "movie"){
+      navigate("/");
+    }else{
+      navigate(`/${kind}`);
+    }
   };
   const { scrollY } = useViewportScroll();
   const { data, isLoading } = useQuery<IDatas>(["detail", id, kind], () =>
@@ -70,7 +74,7 @@ function ItemDetail({id, kind} : IDetail){
     <AnimatePresence>
       <>
         <Overlay
-          onClick={onOverlayClick}
+          onClick={() => onOverlayClick(kind)}
           exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />
@@ -84,7 +88,7 @@ function ItemDetail({id, kind} : IDetail){
               style={{
               backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(data.backdrop_path,"w500")})`,}}
             />
-            <BigTitle>{data.title}</BigTitle>
+            <BigTitle>{data.title || data.name}</BigTitle>
             <BigOverview>{data.overview}</BigOverview>
           </>
         )}        

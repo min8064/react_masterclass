@@ -91,19 +91,19 @@ function Tv() {
           </Banner>
           <SliderWrap>
 			      <SliderTit>Airing</SliderTit>
-            <Slider data={airingTvs} kind="movie" category="airing_today" />
+            <Slider data={airingTvs} kind="tv" category="airing_today" />
           </SliderWrap>
           <SliderWrap>
             <SliderTit>Latest</SliderTit>
-            <Slider data={latestTvs} kind="movie" category="latest" />
+            <Slider data={latestTvs} kind="tv" category="latest" />
           </SliderWrap>
           <SliderWrap>
 			      <SliderTit>Top Rated</SliderTit>
-            <Slider data={topTvs} kind="movie" category="top_rated" />
+            <Slider data={topTvs} kind="tv" category="top_rated" />
           </SliderWrap>
           <SliderWrap>
 			      <SliderTit>Upcoming</SliderTit>
-            <Slider data={popularTvs} kind="movie" category="popular" />
+            <Slider data={popularTvs} kind="tv" category="popular" />
           </SliderWrap>
         </>
       )}
