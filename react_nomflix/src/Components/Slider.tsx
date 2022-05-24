@@ -6,7 +6,7 @@ import { useMatch, useNavigate } from "react-router-dom";
 import {IDatas } from "../api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import itemDetail from "./itemDetail";
+import ItemDetail from "./itemDetail";
 
 const MovingBtn = styled.div`
   display: flex;
@@ -132,11 +132,11 @@ function Slider({data, kind, category, searchYN}: ISlider) {
   };
 	const toggleLeaving = () => setLeaving((prev) => !prev);
 	
-	const movieMatch = useMatch(`/:${kind}/:${category}/:movieId`);
-	const tvMatch = useMatch(`/:${kind}/:${category}/:tvId`);
+	const movieMatch = useMatch(`/movie/:movieId`);
+	const tvMatch = useMatch(`/tv/:tvId`);
 
-	const onBoxClicked = (id: number, kind: string, category: string) => {
-		navigate(`/${kind}/${category}${id}`);
+	const onBoxClicked = (id: number, kind: string) => {
+		navigate(`/${kind}/${id}`);
 	};	
 	return (
 		<>
@@ -159,7 +159,7 @@ function Slider({data, kind, category, searchYN}: ISlider) {
 									variants={boxVariants}
 									whileHover="hover"
 									initial="normal"
-									onClick={() => onBoxClicked(item.id, kind, category)}
+									onClick={() => onBoxClicked(item.id, kind)}
 									transition={{ type: "tween" }}
 									bgPhoto={makeImagePath(item.backdrop_path, "w500")}
 								>
@@ -171,7 +171,9 @@ function Slider({data, kind, category, searchYN}: ISlider) {
 							<MovingBtn onClick={increaseIndex}><FontAwesomeIcon icon={faChevronRight} /></MovingBtn>
 					</Row>
 				</AnimatePresence>
-				
+				{movieMatch && (
+					<ItemDetail id={Number(movieMatch.params.movieId)} kind={kind}/>
+				)}
 		</>
 	);
 }

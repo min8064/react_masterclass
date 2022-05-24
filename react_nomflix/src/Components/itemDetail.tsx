@@ -1,20 +1,10 @@
 
 import { AnimatePresence, motion, useViewportScroll } from "framer-motion";
-import { useParams, useMatch } from "react-router";
 import styled from "styled-components";
 import { getDetailData, IDatas } from "../api";
 import { makeImagePath } from "../utils";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faHeart,
-  faPlay,
-  faPlayCircle,
-  faThumbsDown,
-  faThumbsUp,
-} from "@fortawesome/free-solid-svg-icons";
 
 const Overlay = styled(motion.div)`
 	position: fixed;
@@ -62,10 +52,10 @@ const BigOverview = styled.p`
 interface IDetail {
   id: number;
   kind: string;
-  category: string;
 }
 
-function itemDetail({id, kind, category} : IDetail){
+function ItemDetail({id, kind} : IDetail){
+  console.log(id);
   const navigate = useNavigate();
   //const bigMovieMatch = useMatch("/movies/:movieId");
   const onOverlayClick = () => {
@@ -104,4 +94,4 @@ function itemDetail({id, kind, category} : IDetail){
   );
 }
 
-export default itemDetail;
+export default ItemDetail;
