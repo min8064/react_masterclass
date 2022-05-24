@@ -12,8 +12,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home/>}><Route path="/movie/:movieId" element={<Home/>}></Route></Route>
-        <Route path="/tv" element={<Tv/>}><Route path="/tv/:tvId" element={<Home/>}></Route></Route>
-        <Route path="/search" element={<Search />}><Route path="/search/movie/:movieId" element={<Home/>}></Route><Route path="/search/tv/:tvId" element={<Home/>}></Route></Route>
+        <Route path="/tv" element={<Tv/>}><Route path="/tv/:tvId" element={<Tv/>}></Route></Route>
+        <Route path="/search" element={<Search />}><Route path="/search/movie/:movieId" element={<Search/>}></Route><Route path="/search/tv/:tvId" element={<Search/>}></Route></Route>
       </Routes>
     </Router>
   );

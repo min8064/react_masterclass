@@ -37,7 +37,7 @@ const BigCover = styled.div`
 const BigTitle = styled.h3`
 	color: ${(props) => props.theme.white.lighter};
 	padding: 20px;
-	font-size: 46px;
+	font-size: 40px;
 	position: relative;
 	top: -135px;
 `;
@@ -47,6 +47,7 @@ const BigOverview = styled.p`
 	position: relative;
 	top: -60px;
 	color: ${(props) => props.theme.white.lighter};
+  margin-bottom: 20px;
 `;
 
 const BigUl = styled.ul`
@@ -79,29 +80,34 @@ const BigDiv = styled.div`
 interface IDetail {
   id: number;
   kind: string;
+  searchYN: boolean;
 }
 
-function ItemDetail({id, kind} : IDetail){
+function ItemDetail({id, kind, searchYN} : IDetail){
   console.log(id);
   const navigate = useNavigate();
   //const bigMovieMatch = useMatch("/movies/:movieId");
-  const onOverlayClick = (kind: string) => {
-    if(kind === "movie"){
-      navigate("/");
-    }else{
-      navigate(`/${kind}`);
-    }
-  };
   const { scrollY } = useViewportScroll();
   const { data, isLoading } = useQuery<IDatas>(["detail", id, kind], () =>
     getDetailData(id, kind)
   );
+  const onOverlayClick = (kind: string, searchYN: boolean) => {
+    if(searchYN){
+      navigate("/search");
+    }else{
+      if(kind === "movie"){
+        navigate("/");
+      }else{
+        navigate(`/${kind}`);
+      }
+    }
+  };
   
   return (
     <AnimatePresence>
       <>
         <Overlay
-          onClick={() => onOverlayClick(kind)}
+          onClick={() => onOverlayClick(kind, searchYN)}
           exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />
@@ -114,8 +120,8 @@ function ItemDetail({id, kind} : IDetail){
             />
             <BigUl>
               <Bigli>{data.release_date ? "Release" : "First Air"} : {data.release_date || data.first_air_date}</Bigli>
-              {data.runtime && <Bigli>Runtime : {data.runtime}</Bigli>}
-              <Bigli>Vote : {data.vote_average}</Bigli>
+              {data.runtime != 0 && <Bigli>Runtime : {data.runtime}</Bigli>}
+              {data.vote_average != 0 && <Bigli>Vote : {data.vote_average}</Bigli>}
               <Bigli>Popular : {Math.ceil(data.popularity)}</Bigli>
             </BigUl>
             {data.tagline && <BigDiv>{data.tagline}</BigDiv>}

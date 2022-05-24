@@ -134,9 +134,15 @@ function Slider({data, kind, category, searchYN}: ISlider) {
 	
 	const movieMatch = useMatch(`/movie/:movieId`);
 	const tvMatch = useMatch(`/tv/:tvId`);
+	const searchMovieMatch = useMatch(`/search/movie/:movieId`);
+	const searchTvMatch = useMatch(`/search/tv/:tvId`);
 
 	const onBoxClicked = (id: number, kind: string) => {
-		navigate(`/${kind}/${id}`);
+		if(searchYN){
+			navigate(`/search/${kind}/${id}`);
+		}else{
+			navigate(`/${kind}/${id}`);
+		}
 	};	
 	return (
 		<>
@@ -172,12 +178,24 @@ function Slider({data, kind, category, searchYN}: ISlider) {
 					</Row>
 				</AnimatePresence>
 				{kind === "movie" ? (
-					movieMatch && (
-						<ItemDetail id={Number(movieMatch.params.movieId)} kind={kind}/>
+					searchYN ? (
+						searchMovieMatch && (
+							<ItemDetail id={Number(searchMovieMatch.params.movieId)} kind={kind} searchYN={true}/>
+						)
+					) : (
+						movieMatch && (
+							<ItemDetail id={Number(movieMatch.params.movieId)} kind={kind} searchYN={false}/>
+						)
 					)
 				) : (
-					tvMatch && (
-						<ItemDetail id={Number(tvMatch.params.tvId)} kind={kind}/>
+					searchYN ? (
+						searchTvMatch && (
+							<ItemDetail id={Number(searchTvMatch.params.tvId)} kind={kind} searchYN={true}/>
+						)
+					) : (
+						tvMatch && (
+							<ItemDetail id={Number(tvMatch.params.tvId)} kind={kind} searchYN={false} />
+						)
 					)
 				)}
 		</>
