@@ -12,7 +12,6 @@ const MovingBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-	width:10%;
 `;
 
 const Row = styled(motion.div)`
@@ -21,6 +20,8 @@ const Row = styled(motion.div)`
 	grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr 50px;
 	position: absolute;
 	width: 100%;
+	/* position: relative;
+	display: flex; */
 `;
 
 const Box = styled(motion.div)<{ bgPhoto: string }>`
@@ -29,7 +30,10 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 	background-size: cover;
 	background-position: center center;
 	height: 150px;
+	width:100%;
+	margin:0 5px;
 	font-size: 66px;
+	
 	cursor: pointer;
 	&:first-child {
 		transform-origin: center left;
@@ -44,8 +48,8 @@ const Info = styled(motion.div)`
 	background-color: ${(props) => props.theme.black.lighter};
 	opacity: 0;
 	position: absolute;
-	width: 100%;
 	bottom: 0;
+	
 	h4 {
 		text-align: center;
 		font-size: 18px;
@@ -76,6 +80,7 @@ const boxVariants = {
 			duration: 0.1,
 			type: "tween",
 		},
+		border: "1px solid white",
 	},
 };
 
@@ -97,13 +102,6 @@ interface ISlider {
 	searchYN?: boolean;
 };
 
-interface IMatch {
-	kind: string;
-  category: string;
-  movieId: string;
-  tvId: string;
-}
-
 const offset = 6;
 
 function Slider({data, kind, category, searchYN}: ISlider) {
@@ -114,7 +112,6 @@ function Slider({data, kind, category, searchYN}: ISlider) {
     if (data) {
       if (leaving) return;
       toggleLeaving();
-     // setIncreasing(true);
       const totalMovies = data.length;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
@@ -124,7 +121,6 @@ function Slider({data, kind, category, searchYN}: ISlider) {
     if (data) {
       if (leaving) return;
       toggleLeaving();
-     // setIncreasing(false);
       const totalMovies = data.length;
       const maxIndex = Math.floor(totalMovies / offset) + 1;
       setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -174,7 +170,7 @@ function Slider({data, kind, category, searchYN}: ISlider) {
 									</Info>
 								</Box>
 							))}
-							<MovingBtn onClick={increaseIndex}><FontAwesomeIcon icon={faChevronRight} /></MovingBtn>
+						<MovingBtn onClick={increaseIndex}><FontAwesomeIcon icon={faChevronRight} /></MovingBtn>
 					</Row>
 				</AnimatePresence>
 				{kind === "movie" ? (
